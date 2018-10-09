@@ -12,10 +12,10 @@ public class JavaRuntimeHandler {
 
     private static final Logger LOGGER = LogManager.getLogger("JavaRuntimeHandler");
 
-    static String processName = "Sample.jar";
+    static String processName = "YellCRM-0.0.1-SNAPSHOT.jar";
     static String linuxCommandToShowAllTheRunningProcess = "ps -ef";
-    static String pathToKillShellScriptFile = "/home/prasad/IdeaProjects/kill_pid.sh";
-    static String pathToStartTheProcessFile = "/home/prasad/IdeaProjects/start_program.sh";
+    static String pathToKillShellScriptFile = "/home/bitnami/kill_pid.sh";
+    static String pathToStartTheProcessFile = "/home/bitnami/start_program.sh";
 
     protected void findProcessKillProcessStartProcess() {
         LOGGER.info("Started [Find Process] [Kill Process] [Re-run Process ] ..");
@@ -36,6 +36,9 @@ public class JavaRuntimeHandler {
                         }
                     }
                 }
+                else{
+                    startTheProcess(); //start-up time,when no process is running.
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -46,6 +49,7 @@ public class JavaRuntimeHandler {
     private boolean startTheProcess() {
         LOGGER.info("startin the jar ..");
         boolean isStarted = false;
+        String pop = null;
         try {
             Runtime r = Runtime.getRuntime();
             String cmd[] = {pathToStartTheProcessFile,""};
@@ -54,6 +58,11 @@ public class JavaRuntimeHandler {
             if(getErrorStream(process)!=null){
                 isStarted = false;
                 throw new RuntimeException("Error while starting the process ");
+            }
+
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            while( (pop= bufferedReader.readLine())!=null){
+                LOGGER.info("Output while starting the jar : "+pop);
             }
 
             isStarted = true;
@@ -92,6 +101,7 @@ public class JavaRuntimeHandler {
         BufferedReader stdError = new BufferedReader(new  InputStreamReader(process.getErrorStream()));
         String s = null;
         while ((s = stdError.readLine()) != null) {
+            LOGGER.info("Error in process " +  s);
             return s;
         }
         return null;

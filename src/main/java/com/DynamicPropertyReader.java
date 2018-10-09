@@ -17,7 +17,7 @@ public class DynamicPropertyReader {
         if (isWindows()) {
             serverPath = "C:\\Users\\Machunagendradurgp\\Documents//application-uj1.properties";
         } else {
-            serverPath = "/home/application-uj1.properties";
+            serverPath = "/home/bitnami/application-uj1.properties";
         }
         try {
                 configuration = new PropertiesConfiguration(serverPath);

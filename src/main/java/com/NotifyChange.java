@@ -14,7 +14,7 @@ public class NotifyChange {
     }
 
     public void invoke(){
-
+        System.out.println("Notify Change - listener program started..");
         while(true)
         {
             try
@@ -23,6 +23,7 @@ public class NotifyChange {
                 DynamicPropertyReader dr = new DynamicPropertyReader();
                 dr.notifyChanges();
                 recentValue = dr.getProperty("spring.datasource.url");
+                System.out.println("Waiting for a change ..");
                 if(!lastValue.equals(recentValue)){
                     System.out.println("Yes..something changed: "+recentValue);
                     lastValue = recentValue;
