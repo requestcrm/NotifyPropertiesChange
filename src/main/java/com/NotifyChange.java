@@ -13,7 +13,7 @@ public class NotifyChange {
         new NotifyChange().invoke();
     }
 
-    final int waitTime= 10000;
+    final int waitTime= 60000;
 
     public void invoke(){
         System.out.println("Notify Change - listener program started..");
