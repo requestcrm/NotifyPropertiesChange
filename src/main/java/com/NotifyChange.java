@@ -13,6 +13,8 @@ public class NotifyChange {
         new NotifyChange().invoke();
     }
 
+    final int waitTime= 10000;
+
     public void invoke(){
         System.out.println("Notify Change - listener program started..");
         while(true)
@@ -26,6 +28,8 @@ public class NotifyChange {
                 System.out.println("Waiting for a change ..");
                 if(!lastValue.equals(recentValue)){
                     System.out.println("Yes..something changed: "+recentValue);
+                    System.out.println("Triggering the process ..wait for "+waitTime+" seconds");
+                    Thread.sleep(waitTime);
                     lastValue = recentValue;
                     /*main process to destroy the existing process, run the process again */
                     JavaRuntimeHandler javaRuntimeHandler = new JavaRuntimeHandler();
